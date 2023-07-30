@@ -20,6 +20,12 @@ class LoginPage extends StatelessWidget {
   }
 
   @override
+  void dispose() {
+    userNameController.dispose();
+    passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
