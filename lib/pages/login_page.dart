@@ -14,7 +14,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //text editing controller
   final userNameController = TextEditingController();
-
   final passwordController = TextEditingController();
 
   //sign user in method
