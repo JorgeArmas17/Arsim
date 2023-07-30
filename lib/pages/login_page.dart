@@ -4,19 +4,45 @@ import 'package:arsim/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   //text editing controller
   final userNameController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   //sign user in method
-  Future signUserIn() async {
-    FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: userNameController.text.trim(),
-      password: passwordController.text.trim(),
+  void signUserIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: userNameController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        print("No user found for that email");
+      } else if (e.code == "wrong-password") {
+        print("Wrong Password");
+      }
+      // TODO
+    }
+
+    Navigator.pop(context);
   }
 
   @override
