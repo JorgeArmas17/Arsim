@@ -1,8 +1,7 @@
 import 'package:arsim/components/my_button.dart';
-import 'package:arsim/components/my_textfield.dart';
-import 'package:arsim/components/square_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -13,7 +12,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  //text editing controller
+  StateMachineController? controller;
+  SMIInput<bool>? isChecking;
+  SMIInput<bool>? isHandsUp;
+  SMIInput<bool>? trigSuccess;
+  SMIInput<bool>? triFail;
+
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -57,45 +61,80 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: const Color(0xffD6E2EA),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            child: Column(children: [
-              const SizedBox(height: 50),
-              //logo
-              const Icon(
-                Icons.lock,
-                size: 100,
-              ),
-
-              const SizedBox(height: 50),
-              //welcome back, you've been mised
-              Text(
-                'Welcome back you\'ve been missed',
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const Text(
+                "ARSIM",
                 style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
+                  fontSize: 45, // Cambia el tamaño del texto
+                  color: Colors.black, // Cambia el color del texto
+                  fontWeight: FontWeight.bold, // Aplica negrita al texto
                 ),
               ),
+              SizedBox(
+                  width: size.width,
+                  height: 220,
+                  child: RiveAnimation.asset(
+                    "lib/images/animated_login_character.riv",
+                    stateMachines: ["Login Machine"],
+                    onInit: (artboard) {
+                      controller = StateMachineController.fromArtboard(
+                          artboard, "Login Machine");
+                      if (controller == null) return;
+                      artboard.addController(controller!);
+                      isChecking = controller?.findInput("isChecking");
+                      isHandsUp = controller?.findInput("isHandsUp");
+                      trigSuccess = controller?.findInput("trigSuccess");
+                      triFail = controller?.findInput("trigFail");
+                    },
+                  )),
 
               const SizedBox(height: 25),
+              TextField(
+                onChanged: (value) {
+                  if (isHandsUp != null) {
+                    isHandsUp!.change(false);
+                  }
+                  if (isChecking == null) return;
 
-              //username textfield
-              MyTextField(
+                  isChecking!.change(true);
+                },
+                keyboardType: TextInputType.emailAddress,
                 controller: userNameController,
-                hintText: 'Email',
-                obscureText: false,
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  prefixIcon: const Icon(Icons.mail),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
               ),
-
+              //username textfield
               const SizedBox(height: 10),
+              TextField(
+                onChanged: (value) {
+                  if (isChecking != null) {
+                    isChecking!.change(false);
+                  }
+                  if (isHandsUp == null) return;
 
-              //password textfield
-              MyTextField(
-                controller: passwordController,
-                hintText: 'Password',
+                  isHandsUp!.change(true);
+                },
                 obscureText: true,
+                controller: passwordController, // to hide password
+                decoration: InputDecoration(
+                  hintText: "Contraseña",
+                  prefixIcon: const Icon(Icons.lock),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
               ),
 
               const SizedBox(height: 10),
@@ -107,8 +146,10 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      'forgot password',
-                      style: TextStyle(color: Colors.grey[600]),
+                      'Recuperar Contraseña',
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -117,19 +158,19 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 25),
 
               //sign in button
-              MyButton(text: "Sign In", onTap: signUserIn),
+              MyButton(text: "Iniciar Sesión", onTap: signUserIn),
 
               const SizedBox(height: 50),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Not a member?'),
+                  Text('No tienes cuenta?'),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: widget.onTap,
                     child: Text(
-                      'Register now',
+                      'Registrate',
                       style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
