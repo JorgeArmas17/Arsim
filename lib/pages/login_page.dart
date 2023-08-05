@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
+import 'forgot_you_password.dart';
+
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
   const LoginPage({super.key, required this.onTap});
@@ -142,16 +144,26 @@ class _LoginPageState extends State<LoginPage> {
               //forgot password
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Recuperar Contraseña',
-                      style: TextStyle(
+                child: InkWell(
+                  onTap: () {
+                    // Aquí rediriges a la otra pantalla
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPassScreen()));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Recuperar Contraseña',
+                        style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.grey[600]),
-                    ),
-                  ],
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
 
