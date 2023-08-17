@@ -1,5 +1,7 @@
 import 'package:arsim/pages/carousel.dart';
+import 'package:arsim/pages/intro_page.dart';
 import 'package:arsim/pages/login_page.dart';
+import 'package:arsim/pages/menu_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CarouselWithButtons(),
+      home: IntroPage(),
+      routes: {
+        '/intropage': (context) => const IntroPage(),
+        '/menupage': (context) => const MenuPage(),
+      },
     );
   }
 }
