@@ -38,7 +38,7 @@ class _RestauranteFormState extends State<RestauranteForm> {
             gradient: LinearGradient(
               colors: [
                 Color.fromARGB(255, 47, 47, 41),
-                Color.fromARGB(255, 188, 215, 32)
+                Color.fromARGB(255, 138, 60, 55)
               ],
               begin: Alignment.bottomRight,
               end: Alignment.topLeft,
@@ -106,7 +106,7 @@ class _RestauranteFormState extends State<RestauranteForm> {
               },
               child: const Text("Guardar"),
               style: ElevatedButton.styleFrom(
-                primary: Colors.green,
+                primary: const Color.fromARGB(255, 144, 33, 25),
                 onPrimary: Colors.white,
               ),
             )
