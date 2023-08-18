@@ -1,5 +1,6 @@
 import 'package:arsim/components/button.dart';
 import 'package:arsim/model/food.dart';
+import 'package:arsim/pages/food_details_page.dart';
 import 'package:arsim/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,12 +28,21 @@ class _MenuPageState extends State<MenuPage> {
     Food(
       name: "Tuna",
       price: "21.00",
-      imagePath: "lib/images/salmon_sushi.png",
+      imagePath: "lib/images/sushi.png",
       rating: "4.9",
     ),
   ];
 
   //navigate to food item details page
+  void navigateToFoodDetails(int index) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FoodDetailsPage(
+            food: foodMenu[index],
+          ),
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,26 +107,6 @@ class _MenuPageState extends State<MenuPage> {
 
           const SizedBox(height: 25),
 
-          //searchBar
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: TextField(
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                hintText: "Search Here...",
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 25),
-
           //menu list
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -136,7 +126,10 @@ class _MenuPageState extends State<MenuPage> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: foodMenu.length,
-              itemBuilder: (context, index) => FoodTile(food: foodMenu[index]),
+              itemBuilder: (context, index) => FoodTile(
+                food: foodMenu[index],
+                onTap: () => navigateToFoodDetails(index),
+              ),
             ),
           ),
 
