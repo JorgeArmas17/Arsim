@@ -19,7 +19,7 @@ class IntroPage extends StatelessWidget {
             const SizedBox(height: 25),
             //Nombre Restaurante
             Text(
-              "SUSHI MAN",
+              "EL RODELU",
               style:
                   GoogleFonts.dmSerifDisplay(fontSize: 28, color: Colors.white),
             ),
@@ -29,12 +29,12 @@ class IntroPage extends StatelessWidget {
             //Icono
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset('lib/images/google.png'),
+              child: Image.asset('lib/images/sushiman.png'),
             ),
 
             //Titulo
             Text(
-              "THE TASTE OF JAPANESE FOOD",
+              "THE TASTE OF ECUATORIAN FOOD",
               style:
                   GoogleFonts.dmSerifDisplay(fontSize: 44, color: Colors.white),
             ),

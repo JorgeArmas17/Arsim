@@ -51,10 +51,6 @@ class _MenuPageState extends State<MenuPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Icon(
-          Icons.menu,
-          color: Colors.grey[900],
-        ),
         title: Text(
           "Tokyo",
           style: TextStyle(color: Colors.grey),
