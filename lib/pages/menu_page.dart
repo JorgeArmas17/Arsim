@@ -27,9 +27,9 @@ class _MenuPageState extends State<MenuPage> {
     //tuna
     Food(
       name: "Tuna",
-      price: "21.00",
+      price: "23.00",
       imagePath: "lib/images/sushi.png",
-      rating: "4.9",
+      rating: "4.6",
     ),
   ];
 
