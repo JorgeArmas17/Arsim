@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:arsim/pages/platosform.dart';
 import 'package:arsim/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,8 +27,17 @@ class _RestauranteFormState extends State<RestauranteForm> {
     }
   }
 
+  void _resetForm() {
+    nameController.clear();
+    descriptionController.clear();
+    locationController.clear();
+    imageUrl = "";
+    // This line resets the image selection
+  }
+
   @override
   Widget build(BuildContext context) {
+    bool _formSubmitted = false;
     return Scaffold(
       backgroundColor: Color(0xffD6E2EA),
       appBar: AppBar(
@@ -46,7 +56,7 @@ class _RestauranteFormState extends State<RestauranteForm> {
           ),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -81,30 +91,36 @@ class _RestauranteFormState extends State<RestauranteForm> {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: _selectImage,
-              child: const Text("Seleccionar Imagen"),
+              label: Text("Imagen"),
+              icon: Icon(Icons.image),
               style: ElevatedButton.styleFrom(
                 primary: Colors.blue,
                 onPrimary: Colors.white,
               ),
             ),
             SizedBox(height: 20),
-            imageUrl.isNotEmpty
+            imageUrl.isNotEmpty && !_formSubmitted
                 ? Image.file(
                     File(imageUrl),
                     height: 200,
                   )
                 : SizedBox(),
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () async {
-                await addRestaurant(nameController.text,
-                        descriptionController.text, locationController.text)
-                    .then((_) {
-                  Navigator.pop(context);
+                await addRestaurant(
+                    nameController.text,
+                    descriptionController.text,
+                    locationController.text,
+                    imageUrl);
+                setState(() {
+                  _formSubmitted = true;
                 });
+                _resetForm();
               },
-              child: const Text("Guardar"),
+              label: Text("Guardar"),
+              icon: Icon(Icons.send),
               style: ElevatedButton.styleFrom(
                 primary: const Color.fromARGB(255, 144, 33, 25),
                 onPrimary: Colors.white,
