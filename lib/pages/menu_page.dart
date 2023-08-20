@@ -5,6 +5,7 @@ import 'package:arsim/theme/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 import '../components/food_tile.dart';
 import '../components/progress_bar.dart';
 
@@ -217,20 +218,11 @@ class _PageMenuState extends State<PageMenu> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // Cambia el estado del corazón cuando se toca
-                          setState(() {
-                            isHeartPressed = !isHeartPressed;
-                          });
-                        },
-                        child: Icon(
-                          // Cambia el color y el ícono en función del estado
-                          Icons.favorite,
-                          color: isHeartPressed ? Colors.red : Colors.grey,
-                          size: 28,
+                      Center(
+                        child: LikeButton(
+                          size: 30,
                         ),
-                      ),
+                      )
                     ],
                   ),
                 )
