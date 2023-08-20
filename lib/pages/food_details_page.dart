@@ -14,6 +14,24 @@ class FoodDetailsPage extends StatefulWidget {
 class _FoodDetailsPageState extends State<FoodDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    List<String> ingredientesList = widget.food.ingredientes.split(', ');
+
+    List<Widget> ingredientesWidgets = ingredientesList.map((ingrediente) {
+      return ListTile(
+        contentPadding:
+            EdgeInsets.symmetric(horizontal: 8), // Ajusta este valor
+        leading: Icon(Icons.circle,
+            color: Colors.grey[600], size: 10), // Icono de viñeta
+        title: Text(
+          ingrediente,
+          style: TextStyle(
+            color: Colors.grey[600],
+            fontSize: 14,
+          ),
+        ),
+      );
+    }).toList();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -84,10 +102,28 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                     widget.food.descripcion,
                     style: TextStyle(
                       color: Colors.grey[600],
-                      fontSize: 14,
+                      fontSize: 16,
                       height: 2,
                     ),
                   ),
+                  const SizedBox(height: 25),
+
+                  //description
+
+                  Text(
+                    "Ingredientes",
+                    style: TextStyle(
+                      color: Colors.grey[900],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  Column(
+                    children: ingredientesWidgets,
+                  )
                 ],
               ),
             ),

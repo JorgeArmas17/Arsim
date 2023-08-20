@@ -1,4 +1,4 @@
-import 'package:arsim/pages/login_page.dart';
+import 'package:arsim/pages/intro_page.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -39,7 +39,7 @@ class CarouselWithButtons extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  LoginPage(), // Reemplaza "NewPage()" por la página que deseas mostrar
+                  IntroPage(), // Reemplaza "NewPage()" por la página que deseas mostrar
             ),
           );
         },

@@ -2,190 +2,243 @@ import 'package:arsim/components/button.dart';
 import 'package:arsim/model/food.dart';
 import 'package:arsim/pages/food_details_page.dart';
 import 'package:arsim/theme/colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/food_tile.dart';
+import '../components/progress_bar.dart';
 
-class MenuPage extends StatefulWidget {
-  const MenuPage({super.key});
+class PageMenu extends StatefulWidget {
+  final int num;
+  final String title;
+  PageMenu({super.key, required this.num, required this.title});
 
   @override
-  State<MenuPage> createState() => _MenuPageState();
+  State<PageMenu> createState() => _PageMenuState();
 }
 
-class _MenuPageState extends State<MenuPage> {
-  //food menu
-  List foodMenu = [
-    //salmon sushi
-    Food(
-      nombre: "Salmon Sushi",
-      precio: "21.00",
-      imagenUrl: "lib/images/salmon_sushi.png",
-      descripcion: "rico",
-      estrellas: "4.9",
-    ),
+List id = [];
 
-    //tuna
-    Food(
-      nombre: "Tuna",
-      precio: "23.00",
-      imagenUrl: "lib/images/sushi.png",
-      descripcion: "rico",
-      estrellas: "4.6",
-    ),
-  ];
+Future<List> fetchFoodID() async {
+  QuerySnapshot snapshot =
+      await FirebaseFirestore.instance.collection('registro').get();
 
-  //navigate to food item details page
-  void navigateToFoodDetails(int index) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => FoodDetailsPage(
-            food: foodMenu[index],
-          ),
-        ));
+  for (QueryDocumentSnapshot doc in snapshot.docs) {
+    id.add(doc.reference.id);
   }
+  return id;
+}
+
+Future<List<Food>> fetchFoodList(int num) async {
+  List<dynamic> ID =
+      await fetchFoodID(); // Suponiendo que fetchFoodID() retorna Future<List<dynamic>>
+  print('datos: ${ID[num]} ');
+  List<Food> foodMenu = [];
+
+  //for (dynamic id in ID) {
+  QuerySnapshot snapshot = await FirebaseFirestore.instance
+      .collection('registro')
+      .doc(ID[num])
+      .collection('platos')
+      .get();
+
+  for (QueryDocumentSnapshot doc in snapshot.docs) {
+    foodMenu.add(
+      Food(
+        nombre: doc['nombre'] ?? '',
+        precio: doc['precio'] ?? '',
+        imagenUrl: doc['imagenUrl'] ?? '',
+        descripcion: doc['descripcion'],
+        ingredientes: doc['ingredientes'] ?? '',
+        estrellas: doc['estrellas'] ?? '',
+      ),
+    );
+  }
+
+  //}
+  print('menu $foodMenu');
+  return foodMenu;
+}
+
+class _PageMenuState extends State<PageMenu> {
+  Future<void> navigateToFoodDetails(int index, List MenuFood) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FoodDetailsPage(
+          food: MenuFood[index], // Use foodItems instead of foodMenu
+        ),
+      ),
+    );
+  }
+
+  // Estado para controlar el cambio de color del corazón
+  bool isHeartPressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          "Tokyo",
-          style: TextStyle(color: Colors.grey),
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //promo banner
-          Container(
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.circular(20),
+    int num = widget.num;
+    return FutureBuilder<List<Food>>(
+      future: fetchFoodList(num),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return ProgressBar();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          List<Food> foodItems = snapshot.data!;
+          return Scaffold(
+            backgroundColor: Colors.grey[300],
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Text(
+                widget.title,
+                style: TextStyle(color: Colors.black, fontSize: 18),
+              ),
             ),
-            margin: const EdgeInsets.symmetric(horizontal: 25),
-            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //promo massge
-                    Text(
-                      'Get 32% Promo',
-                      style: GoogleFonts.dmSerifDisplay(
-                        fontSize: 20,
-                        color: Colors.white,
+                Container(
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //promo massge
+                          Text(
+                            'Get 32% Promo',
+                            style: GoogleFonts.dmSerifDisplay(
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          //Redeem button
+                          MyMainButton(
+                            text: "Redeem",
+                            onTap: () {
+                              // Navigate to the menu page
+                              Navigator.pushNamed(context, '/intropage');
+                            },
+                          )
+                        ],
                       ),
+
+                      //image
+                      Image.asset(
+                        'lib/images/sushi.png',
+                        height: 100,
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                // menu list
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Text(
+                    "Food Menu",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[800],
+                      fontSize: 18,
                     ),
+                  ),
+                ),
+                const SizedBox(height: 10),
 
-                    const SizedBox(height: 20),
+                // Food Items
 
-                    //Redeem button
-                    MyMainButton(
-                      text: "Redeem",
-                      onTap: () {},
-                    )
-                  ],
+                const SizedBox(height: 25),
+                Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: foodItems.length,
+                    itemBuilder: (context, index) => FoodTile(
+                      food: foodItems[index],
+                      onTap: () => navigateToFoodDetails(index, foodItems),
+                    ),
+                  ),
                 ),
 
-                //image
-                Image.asset(
-                  'lib/images/sushi.png',
-                  height: 100,
-                ),
+                // popular food
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin:
+                      const EdgeInsets.only(left: 25, right: 25, bottom: 25),
+                  padding: const EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          //image
+                          Image.asset(
+                            'lib/images/salmon_sushi.png',
+                            height: 60,
+                          ),
+
+                          //name andd price
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //name
+                              Text(
+                                "Salon Sushi",
+                                style: GoogleFonts.dmSerifDisplay(fontSize: 18),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              //price
+                              Text(
+                                "\$21.00",
+                                style: TextStyle(color: Colors.grey[700]),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Cambia el estado del corazón cuando se toca
+                          setState(() {
+                            isHeartPressed = !isHeartPressed;
+                          });
+                        },
+                        child: Icon(
+                          // Cambia el color y el ícono en función del estado
+                          Icons.favorite,
+                          color: isHeartPressed ? Colors.red : Colors.grey,
+                          size: 28,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
-          ),
-
-          const SizedBox(height: 25),
-
-          //menu list
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Text(
-              "Food Menu",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[800],
-                fontSize: 18,
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 10),
-
-          Expanded(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: foodMenu.length,
-              itemBuilder: (context, index) => FoodTile(
-                food: foodMenu[index],
-                onTap: () => navigateToFoodDetails(index),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 25),
-
-          //popular food
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(20),
-            ),
-            margin: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    //image
-                    Image.asset(
-                      'lib/images/salmon_sushi.png',
-                      height: 60,
-                    ),
-
-                    //name andd price
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //name
-                        Text(
-                          "Salon Sushi",
-                          style: GoogleFonts.dmSerifDisplay(fontSize: 18),
-                        ),
-
-                        const SizedBox(height: 10),
-
-                        //price
-                        Text(
-                          "\$21.00",
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                //heart
-                const Icon(
-                  Icons.favorite_border_outlined,
-                  color: Colors.grey,
-                  size: 28,
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 }

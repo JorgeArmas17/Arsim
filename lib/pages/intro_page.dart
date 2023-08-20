@@ -1,5 +1,6 @@
 import 'package:arsim/components/button.dart';
-import 'package:arsim/components/my_button.dart';
+import 'package:arsim/components/progress_bar.dart';
+import 'package:arsim/pages/menu_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +42,7 @@ class IntroPage extends StatelessWidget {
       future: fetchCarouselItems(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return ProgressBar();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -73,7 +74,7 @@ class IntroPage extends StatelessWidget {
                             const SizedBox(height: 25),
                             //Número del carrusel
                             Text(
-                              'Carrusel ${index + 1}',
+                              'Restaurante ${index + 1}',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,
@@ -114,13 +115,51 @@ class IntroPage extends StatelessWidget {
                             const SizedBox(height: 25),
 
                             //Boton Inicio
-                            MyMainButton(
-                              text: "Get Started",
+
+                            GestureDetector(
                               onTap: () {
-                                // Navigate to the menu page
-                                Navigator.pushNamed(context, '/menupage');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PageMenu(
+                                            num: index,
+                                            title: item.title,
+                                          )),
+                                );
                               },
-                            )
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(109, 140, 94, 91),
+                                    borderRadius: BorderRadius.circular(40)),
+                                padding: EdgeInsets.all(20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    //Text
+                                    Text(
+                                      "Get Started",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+
+                                    const SizedBox(height: 10),
+
+                                    //Icon
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            // MyMainButton(
+                            //   text: "Get Started",
+                            //   onTap: () {
+                            //     // Navigate to the menu page
+                            //     Navigator.pushNamed(context, '/menupage');
+                            //   },
+                            // )
                           ],
                         ),
                       );
