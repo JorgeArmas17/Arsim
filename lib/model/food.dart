@@ -1,17 +1,20 @@
 class Food {
-  String name;
-  String price;
-  String imagePath;
-  String rating;
+  String nombre;
+  String precio;
+  String imagenUrl;
+  String descripcion;
+  String estrellas;
 
   Food(
-      {required this.name,
-      required this.price,
-      required this.imagePath,
-      required this.rating});
+      {required this.nombre,
+      required this.precio,
+      required this.imagenUrl,
+      required this.descripcion,
+      required this.estrellas});
 
-  String get _name => name;
-  String get _price => price;
-  String get _imagePath => imagePath;
-  String get _rating => rating;
+  String get _nombre => nombre;
+  String get _price => precio;
+  String get _imagenUrl => imagenUrl;
+  String get _descripcion => descripcion;
+  String get _estrellas => estrellas;
 }

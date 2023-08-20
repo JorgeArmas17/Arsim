@@ -30,7 +30,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                 children: [
                   //image
                   Image.asset(
-                    widget.food.imagePath,
+                    widget.food.imagenUrl,
                     height: 200,
                   ),
 
@@ -49,7 +49,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
 
                       //rating number
                       Text(
-                        widget.food.rating,
+                        widget.food.estrellas,
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontWeight: FontWeight.bold,
@@ -62,7 +62,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
 
                   //food name
                   Text(
-                    widget.food.name,
+                    widget.food.nombre,
                     style: GoogleFonts.dmSerifDisplay(fontSize: 28),
                   ),
 
@@ -81,7 +81,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                   const SizedBox(height: 10),
 
                   Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    widget.food.descripcion,
                     style: TextStyle(
                       color: Colors.grey[600],
                       fontSize: 14,
@@ -105,7 +105,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                     children: [
                       //price
                       Text(
-                        "\$" + widget.food.price,
+                        "\$" + widget.food.precio,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

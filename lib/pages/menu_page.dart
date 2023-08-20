@@ -18,18 +18,20 @@ class _MenuPageState extends State<MenuPage> {
   List foodMenu = [
     //salmon sushi
     Food(
-      name: "Salmon Sushi",
-      price: "21.00",
-      imagePath: "lib/images/salmon_sushi.png",
-      rating: "4.9",
+      nombre: "Salmon Sushi",
+      precio: "21.00",
+      imagenUrl: "lib/images/salmon_sushi.png",
+      descripcion: "rico",
+      estrellas: "4.9",
     ),
 
     //tuna
     Food(
-      name: "Tuna",
-      price: "23.00",
-      imagePath: "lib/images/sushi.png",
-      rating: "4.6",
+      nombre: "Tuna",
+      precio: "23.00",
+      imagenUrl: "lib/images/sushi.png",
+      descripcion: "rico",
+      estrellas: "4.6",
     ),
   ];
 

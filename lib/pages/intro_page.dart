@@ -17,20 +17,6 @@ class CarouselItem {
   });
 }
 
-//List<CarouselItem> carouselItems = [
-// CarouselItem(
-//  title: 'EL RODELU',
-// imageUrl: 'lib/images/sushiman.png',
-// description: 'Taste the most popular food from anywhere any time',
-//),
-// CarouselItem(
-//  title: 'DORILOKO',
-// imageUrl: 'lib/images/carne.png',
-//   description: 'Tas',
-//  ),
-// Agrega más elementos del carrusel según tus necesidades
-//];//
-
 Future<List<CarouselItem>> fetchCarouselItems() async {
   List<CarouselItem> items = [];
 
@@ -55,7 +41,7 @@ class IntroPage extends StatelessWidget {
       future: fetchCarouselItems(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // You can replace this with a loading indicator widget
+          return CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -73,7 +59,10 @@ class IntroPage extends StatelessWidget {
                   autoPlayAnimationDuration: Duration(milliseconds: 800),
                   autoPlayCurve: Curves.fastOutSlowIn,
                 ),
-                items: carouselItems.map((item) {
+                items: carouselItems.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  CarouselItem item = entry.value;
+
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
@@ -82,6 +71,14 @@ class IntroPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const SizedBox(height: 25),
+                            //Número del carrusel
+                            Text(
+                              'Carrusel ${index + 1}',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
+                            ),
                             //Nombre del Restaurante
                             Text(
                               item.title,
@@ -90,24 +87,20 @@ class IntroPage extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-
                             const SizedBox(height: 25),
-
                             //Icono
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Image.asset(item.imageUrl),
                             ),
-
                             //Titulo
                             Text(
                               "THE TASTE OF ECUATORIAN FOOD",
                               style: GoogleFonts.dmSerifDisplay(
-                                fontSize: 44,
+                                fontSize: 40,
                                 color: Colors.white,
                               ),
                             ),
-
                             const SizedBox(height: 5),
                             //Subtitulo
                             Text(
@@ -127,7 +120,7 @@ class IntroPage extends StatelessWidget {
                                 // Navigate to the menu page
                                 Navigator.pushNamed(context, '/menupage');
                               },
-                            ),
+                            )
                           ],
                         ),
                       );
