@@ -1,8 +1,11 @@
 import 'package:arsim/pages/restaurantform.dart';
 import 'package:arsim/pages/platosform.dart';
+import 'package:arsim/pages/redessociales.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,10 +23,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BottomNavigation(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => RestauranteForm(),
-      // },
     );
   }
 }
@@ -41,24 +40,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget> _screens = [
     RestauranteForm(),
     DishForm(),
+    SocialMediaPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffD6E2EA),
       body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Color(0xffD6E2EA),
+        color: Color.fromARGB(255, 105, 39, 35),
+        animationDuration: Duration(milliseconds: 300),
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Agregar Restaurante',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.ac_unit), // Icono de ejemplo para la otra pantalla
-            label: 'Platos', // Etiqueta de ejemplo para la otra pantalla
-          ),
+          Icon(Icons.restaurant, color: Colors.white),
+          Icon(Icons.fastfood, color: Colors.white),
+          Icon(Icons.alternate_email_rounded, color: Colors.white),
         ],
-        currentIndex: _selectedIndex,
+        index: _selectedIndex,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;

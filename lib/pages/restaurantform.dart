@@ -32,7 +32,6 @@ class _RestauranteFormState extends State<RestauranteForm> {
     descriptionController.clear();
     locationController.clear();
     imageUrl = "";
-    // This line resets the image selection
   }
 
   @override
