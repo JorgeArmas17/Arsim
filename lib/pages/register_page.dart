@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 50),
               //welcome back, you've been mised
               Text(
-                'Lets create an account for you',
+                'Vamos a crear una cuenta para ti',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 16,
@@ -96,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               MyTextField(
                 controller: passwordController,
-                hintText: 'Password',
+                hintText: 'Contraseñá',
                 obscureText: true,
               ),
 
@@ -104,26 +104,26 @@ class _RegisterPageState extends State<RegisterPage> {
               //password textfield
               MyTextField(
                 controller: confirmpasswordController,
-                hintText: 'Confirm Password',
+                hintText: 'Confirmar Contraseña',
                 obscureText: true,
               ),
 
               const SizedBox(height: 25),
 
               //sign in button
-              MyButton(text: "Sign Up", onTap: signUserUp),
+              MyButton(text: "Iniciar Sesion", onTap: signUserUp),
 
               const SizedBox(height: 50),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Already have an Account'),
+                  Text('Ya tienes una cuenta'),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: widget.onTap,
                     child: Text(
-                      'Login Up',
+                      'Iniciar Sesion',
                       style: TextStyle(
                           color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
