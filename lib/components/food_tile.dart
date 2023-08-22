@@ -26,7 +26,7 @@ class FoodTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //image
-            Image.asset(
+            Image.network(
               food.imagenUrl,
               height: 140,
             ),
@@ -54,7 +54,7 @@ class FoodTile extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.star,
-                        color: Colors.yellow[800],
+                        color: Colors.orange,
                       ),
                       Text(
                         food.estrellas,
@@ -64,7 +64,7 @@ class FoodTile extends StatelessWidget {
                   )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

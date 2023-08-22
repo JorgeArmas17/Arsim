@@ -192,7 +192,7 @@ class _PageMenuState extends State<PageMenu> {
                         children: [
                           //image
                           Image.asset(
-                            'lib/images/salmon_sushi.png',
+                            'lib/images/carne.png',
                             height: 60,
                           ),
 
@@ -203,7 +203,7 @@ class _PageMenuState extends State<PageMenu> {
                             children: [
                               //name
                               Text(
-                                "Salon Sushi",
+                                "Te gusto la aplicacion?",
                                 style: GoogleFonts.dmSerifDisplay(fontSize: 18),
                               ),
 
@@ -211,7 +211,7 @@ class _PageMenuState extends State<PageMenu> {
 
                               //price
                               Text(
-                                "\$21.00",
+                                "Dale me gusta",
                                 style: TextStyle(color: Colors.grey[700]),
                               ),
                             ],

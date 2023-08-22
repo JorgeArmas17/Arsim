@@ -11,8 +11,7 @@ class MyMainButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: Color.fromARGB(109, 140, 94, 91),
-            borderRadius: BorderRadius.circular(40)),
+            color: Colors.white, borderRadius: BorderRadius.circular(40)),
         padding: EdgeInsets.all(20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -20,7 +19,7 @@ class MyMainButton extends StatelessWidget {
             //Text
             Text(
               text,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
 
             const SizedBox(height: 10),

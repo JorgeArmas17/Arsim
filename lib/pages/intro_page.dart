@@ -10,11 +10,13 @@ class CarouselItem {
   final String title;
   final String imageUrl;
   final String description;
+  final String ubicacion;
 
   CarouselItem({
     required this.title,
     required this.imageUrl,
     required this.description,
+    required this.ubicacion,
   });
 }
 
@@ -29,6 +31,7 @@ Future<List<CarouselItem>> fetchCarouselItems() async {
       title: doc['nombre'] ?? '',
       imageUrl: doc['imagenUrl'] ?? '',
       description: doc['descripcion'] ?? '',
+      ubicacion: doc['ubicacion'] ?? '',
     ));
   }
 
@@ -48,7 +51,7 @@ class IntroPage extends StatelessWidget {
         } else {
           List<CarouselItem> carouselItems = snapshot.data!;
           return Scaffold(
-            backgroundColor: Color.fromARGB(255, 130, 60, 55),
+            backgroundColor: Color.fromARGB(255, 139, 187, 231),
             body: Padding(
               padding: const EdgeInsets.all(25.0),
               child: CarouselSlider(
@@ -72,14 +75,16 @@ class IntroPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const SizedBox(height: 25),
+
                             //Número del carrusel
                             Text(
-                              'Restaurante ${index + 1}',
+                              'N ${index + 1}',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 1,
                                 color: Colors.white,
                               ),
                             ),
+
                             //Nombre del Restaurante
                             Text(
                               item.title,
@@ -88,24 +93,29 @@ class IntroPage extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
+
                             const SizedBox(height: 25),
+
                             //Icono
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(item.imageUrl),
+                              child: Image.network(item.imageUrl),
                             ),
-                            //Titulo
+
+                            //Descripcion
                             Text(
-                              "THE TASTE OF ECUATORIAN FOOD",
+                              item.description,
                               style: GoogleFonts.dmSerifDisplay(
-                                fontSize: 40,
+                                fontSize: 20,
                                 color: Colors.white,
                               ),
                             ),
+
                             const SizedBox(height: 5),
-                            //Subtitulo
+
+                            //Ubicacion
                             Text(
-                              item.description,
+                              item.ubicacion,
                               style: TextStyle(
                                 color: Colors.grey[300],
                                 height: 2,
@@ -121,15 +131,16 @@ class IntroPage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => PageMenu(
-                                            num: index,
-                                            title: item.title,
-                                          )),
+                                    builder: (context) => PageMenu(
+                                      num: index,
+                                      title: item.title,
+                                    ),
+                                  ),
                                 );
                               },
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Color.fromARGB(109, 140, 94, 91),
+                                    color: Colors.white,
                                     borderRadius: BorderRadius.circular(40)),
                                 padding: EdgeInsets.all(20),
                                 child: Row(
@@ -137,8 +148,8 @@ class IntroPage extends StatelessWidget {
                                   children: [
                                     //Text
                                     Text(
-                                      "Get Started",
-                                      style: TextStyle(color: Colors.white),
+                                      "Comenzar",
+                                      style: TextStyle(color: Colors.black),
                                     ),
 
                                     const SizedBox(height: 10),

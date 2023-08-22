@@ -47,7 +47,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
               child: ListView(
                 children: [
                   //image
-                  Image.asset(
+                  Image.network(
                     widget.food.imagenUrl,
                     height: 200,
                   ),
@@ -60,7 +60,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                       //star icon
                       Icon(
                         Icons.star,
-                        color: Colors.yellow[800],
+                        color: Colors.orange,
                       ),
 
                       const SizedBox(height: 10),
