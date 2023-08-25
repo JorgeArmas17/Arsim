@@ -1,3 +1,4 @@
+import 'package:arsim/pages/comentarios.dart';
 import 'package:arsim/pages/intro_page.dart';
 import 'package:arsim/pages/menu_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       home: IntroPage(),
       routes: {
         '/intropage': (context) => IntroPage(),
+        '/comentarios': (context) => ComentPage(),
       },
     );
   }

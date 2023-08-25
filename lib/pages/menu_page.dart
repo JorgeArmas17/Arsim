@@ -101,53 +101,6 @@ class _PageMenuState extends State<PageMenu> {
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //promo massge
-                          Text(
-                            'Get 32% Promo',
-                            style: GoogleFonts.dmSerifDisplay(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-
-                          const SizedBox(height: 20),
-
-                          //Redeem button
-                          MyMainButton(
-                            text: "Redeem",
-                            onTap: () {
-                              // Navigate to the menu page
-                              Navigator.pushNamed(context, '/intropage');
-                            },
-                          )
-                        ],
-                      ),
-
-                      //image
-                      Image.asset(
-                        'lib/images/sushi.png',
-                        height: 100,
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 25),
-
                 // menu list
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -176,14 +129,69 @@ class _PageMenuState extends State<PageMenu> {
                   ),
                 ),
 
-                // popular food
+                const SizedBox(height: 25),
+
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: primaryColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  margin:
-                      const EdgeInsets.only(left: 25, right: 25, bottom: 25),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //promo massge
+                          Text(
+                            'Comentarios',
+                            style: GoogleFonts.dmSerifDisplay(
+                              fontSize: 20,
+                              color: Colors.black87,
+                            ),
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          //Redeem button
+                          MyMainButton(
+                            text: "Ver",
+                            onTap: () {
+                              // Navigate to the menu page
+                              Navigator.pushNamed(context, '/comentarios');
+                            },
+                          )
+                        ],
+                      ),
+
+                      //image
+                      Image.asset(
+                        'lib/images/comentarios.png',
+                        height: 100,
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 25),
+
+                // popular food
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 173, 214, 244), // Celeste claro
+                        Color.fromARGB(255, 22, 109, 189), // Celeste medio
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   padding: const EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,7 +220,9 @@ class _PageMenuState extends State<PageMenu> {
                               //price
                               Text(
                                 "Dale me gusta",
-                                style: TextStyle(color: Colors.grey[700]),
+                                style: TextStyle(
+                                    color:
+                                        const Color.fromARGB(255, 37, 37, 37)),
                               ),
                             ],
                           ),

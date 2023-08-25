@@ -81,7 +81,7 @@ class IntroPage extends StatelessWidget {
                               'N ${index + 1}',
                               style: TextStyle(
                                 fontSize: 1,
-                                color: Colors.white,
+                                color: Colors.black87,
                               ),
                             ),
 
@@ -90,7 +90,7 @@ class IntroPage extends StatelessWidget {
                               item.title,
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 28,
-                                color: Colors.white,
+                                color: Colors.black87,
                               ),
                             ),
 
@@ -107,7 +107,7 @@ class IntroPage extends StatelessWidget {
                               item.description,
                               style: GoogleFonts.dmSerifDisplay(
                                 fontSize: 20,
-                                color: Colors.white,
+                                color: Colors.black87,
                               ),
                             ),
 
@@ -117,7 +117,7 @@ class IntroPage extends StatelessWidget {
                             Text(
                               item.ubicacion,
                               style: TextStyle(
-                                color: Colors.grey[300],
+                                color: Colors.black,
                                 height: 2,
                               ),
                             ),
@@ -139,9 +139,20 @@ class IntroPage extends StatelessWidget {
                                 );
                               },
                               child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 16),
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(40)),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(
+                                          255, 173, 214, 244), // Celeste claro
+                                      Color.fromARGB(
+                                          255, 22, 109, 189), // Celeste medio
+                                    ],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 padding: EdgeInsets.all(20),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +160,8 @@ class IntroPage extends StatelessWidget {
                                     //Text
                                     Text(
                                       "Comenzar",
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 18),
                                     ),
 
                                     const SizedBox(height: 10),

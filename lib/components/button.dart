@@ -22,7 +22,7 @@ class MyMainButton extends StatelessWidget {
               style: TextStyle(color: Colors.black),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
             //Icon
             Icon(
