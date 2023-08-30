@@ -29,6 +29,13 @@
             {
               "client_id": "884201425330-hig9j68b33dd32ag73ni4g6m7aq8vq1i.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "884201425330-d9m285t937ctc4f58jv0mhuuagc8psje.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.arsim"
+              }
             }
           ]
         }
