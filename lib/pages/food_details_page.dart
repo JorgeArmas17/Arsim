@@ -88,7 +88,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
 
                   //description
                   Text(
-                    "Description",
+                    "Descripcion",
                     style: TextStyle(
                       color: Colors.grey[900],
                       fontWeight: FontWeight.bold,
@@ -111,7 +111,7 @@ class _FoodDetailsPageState extends State<FoodDetailsPage> {
                   //description
 
                   Text(
-                    "Ingredientes",
+                    "Detalles",
                     style: TextStyle(
                       color: Colors.grey[900],
                       fontWeight: FontWeight.bold,

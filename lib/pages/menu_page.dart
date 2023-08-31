@@ -105,7 +105,7 @@ class _PageMenuState extends State<PageMenu> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Text(
-                    "Food Menu",
+                    "Menu del Día",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[800],

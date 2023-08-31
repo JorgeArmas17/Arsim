@@ -159,7 +159,7 @@ class IntroPage extends StatelessWidget {
                                   children: [
                                     //Text
                                     Text(
-                                      "Comenzar",
+                                      "Ver Menu",
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 18),
                                     ),

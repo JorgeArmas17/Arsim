@@ -65,6 +65,10 @@ class FoodTile extends StatelessWidget {
                 ],
               ),
             ),
+            Text(
+              'Disponible',
+              style: GoogleFonts.dmSerifDisplay(fontSize: 10),
+            ),
           ],
         ),
       ),
